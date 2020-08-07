@@ -1,4 +1,4 @@
-# Real TIme Detection of a Suspicious Person in CCTV Footage
+# Real Time Detection of a Suspicious Person in CCTV Footage
 
 ## Abstract
 

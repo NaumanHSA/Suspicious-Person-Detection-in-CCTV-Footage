@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p style="color: red;">{{data.error}}</p>
+</div>
+
+<div mat-dialog-actions>
+  <button class="btn btn-danger" style="float: right; width: 100px; border: none;" (click)="onYesClick()">Yes</button>
+  <button class="btn btn-primary" style="float: right; width: 100px; border: none; margin-right: 20px;" (click)="onNoClick()">No</button>
+</div>

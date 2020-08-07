@@ -1,0 +1,102 @@
+<div class="container-main pt-3">
+
+    <div class="container-fluid mb-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom" style="height: 150px;">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-uppercase mb-1">Run on local images</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="was-validated mb-3">
+                                    <div class="custom-file">
+                                        <input #fileInput type="file" class="custom-file-input is-invalid"
+                                            id="customFileLang" (change)="handleUpload($event)" accept="image"
+                                            webkitdirectory multiple required>
+                                        <label class="custom-file-label overflow-hidden is-invalid"
+                                            for="customFileLang">{{inputText}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-success" (click)="onDetectionButton()" [disabled]="isDisable">Start Detection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid  mb-3">
+        <div class="row">
+            <div class="col-xl-6 mb-5 mb-xl-0">
+                <div class="card" style="height: 400px;">
+                    <div class="card-body" style="padding: 0px;">
+                        <div class="video-container">
+                            <img class="image-custom" src={{images[image_index]}} alt="image">
+                        </div>
+                        <div class="player-button-container">
+                            <button class="playerButton" (click)="onCommandButton('previous')" matTooltip="play"
+                                matTooltipClass="tooltip-custom">
+                                <mat-icon style="font-size: 30px;">fast_rewind</mat-icon>
+                            </button>
+                            <button class="playerButton" (click)="onCommandButton('next')" matTooltip="snapshot"
+                                matTooltipClass="tooltip-custom">
+                                <mat-icon style="font-size: 30px;">fast_forward</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 mb-5 mb-xl-0">
+                <div class="card card-custom" style="height: 460px;">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-uppercase mb-1">Results</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid  mb-2">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom" style="height: 200px;">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="text-uppercase mb-1">Images</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="height: 200px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading">
+        <div class="progress-background"></div>
+        <div class="progress">
+            <mat-progress-spinner class="example-margin" color="primary" mode="indeterminate" diameter="200">
+            </mat-progress-spinner>
+            <h4>{{progress}}</h4>
+        </div>
+    </div>
+</div>

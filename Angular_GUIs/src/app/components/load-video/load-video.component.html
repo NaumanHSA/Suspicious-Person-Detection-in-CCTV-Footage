@@ -1,0 +1,202 @@
+<div class="container-main pt-3">
+
+    <div *ngIf="!isFullScreen">
+
+        <div class="container-fluid mb-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-custom" style="height: 150px;">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h4 class="text-uppercase mb-1">Run on local Video file</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="was-validated custom-file mb-3">
+                                        <input type="file" class="custom-file-input is-invalid" id="customFileLang"
+                                            (change)="handleUpload($event)" accept="video/*" required>
+                                        <label class="custom-file-label overflow-hidden is-invalid"
+                                            for="customFileLang">{{inputText}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <button [class]="playStopButtonStyle" (click)="onDetectionButton()"
+                                        style="float: right" [disabled]="isDisable">{{buttonTitle}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid  mb-3">
+            <div class="row">
+                <div class="col-xl-6 mb-5 mb-xl-0">
+                    <div class="card" style="height: 400px;">
+                        <div class="card-body" style="padding: 0px;">
+
+                            <div class="video-container">
+                                <img src={{videoURL}} class="video" alt="video">
+                                <label class="fps">{{fps | number : '1.2-2'}}</label>
+                            </div>
+                            <div style="background-color: black;">
+                                <input type="range" class="video-progressbar" min="0" [max]="tots" step="1"
+                                    [(ngModel)]="frame_number" (click)="onSliderClick()">
+                            </div>
+
+                            <div class="player-button-container card-custom">
+                                <button class="playerButton" (click)="onCommandButton('play')" matTooltip="play"
+                                    matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">play_arrow</mat-icon>
+                                </button>
+                                <button class="playerButton" (click)="onCommandButton('stay')" matTooltip="stop"
+                                    matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">stop</mat-icon>
+                                </button>
+                                <button class="playerButton" (click)="onCommandButton('prev_frame')"
+                                    title="seek backward" matTooltip="seek backward" matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">replay_10</mat-icon>
+                                </button>
+                                <button class="playerButton" (click)="onCommandButton('next_frame')"
+                                    matTooltip="seek forward" matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">forward_30</mat-icon>
+                                </button>
+                                <button class="playerButton" matTooltip="slower" matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">fast_rewind</mat-icon>
+                                </button>
+                                <button class="playerButton" matTooltip="faster" matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">fast_forward</mat-icon>
+                                </button>
+                                <button class="playerButton" (click)="onCommandButton('snap')" matTooltip="snapshot"
+                                    matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">camera_alt</mat-icon>
+                                </button>
+                                <button class="playerButton" (click)="onCommandButton('fullscreen')"
+                                    matTooltip="fullscreen" matTooltipClass="tooltip-custom">
+                                    <mat-icon style="font-size: 30px;">fullscreen</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card card-custom" style="height: 460px;">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h4 class="text-uppercase mb-1">Weapon bbox Locations</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="locationChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid  mb-2">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card card-custom" style="height: 200px;">
+                        <div class="card-body">
+                            <div id="progressChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card card-custom" style="height: 200px;">
+                        <div class="card-body">
+                            <b>Person</b>
+                            <div class="row" style="align-items: center; justify-content: center;">
+                                <div class="col-10">
+                                    <mat-progress-bar class="confidence-progressbar" color="primary"
+                                        [value]="confidence_person*100"></mat-progress-bar>
+                                </div>
+                                <div class="col-2"><b>{{confidence_person | number : '1.2-2'}}</b></div>
+                            </div>
+
+                            <b>Weapon</b>
+                            <div class="row" style="align-items: center; justify-content: center;">
+                                <div class="col-10">
+                                    <mat-progress-bar class="confidence-progressbar" color="accent"
+                                        [value]="confidence_weapon*100"></mat-progress-bar>
+                                </div>
+                                <div class="col-2"><b>{{confidence_weapon | number : '1.2-2'}}</b></div>
+                            </div>
+
+                            <b>Suspicious</b>
+                            <div class="row" style="align-items: center; justify-content: center;">
+                                <div class="col-10">
+                                    <mat-progress-bar class="confidence-progressbar" color="warn"
+                                        [value]="confidence_suspicious*100"></mat-progress-bar>
+                                </div>
+                                <div class="col-2"><b>{{confidence_suspicious | number : '1.2-2'}}</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading">
+        <div class="network-progress-background"></div>
+        <div class="network-progress">
+            <mat-progress-spinner class="example-margin" color="primary" mode="indeterminate" diameter="200">
+            </mat-progress-spinner>
+            <h4>Loading Model...</h4>
+        </div>
+    </div>
+
+    <div class="fullscreen-player" *ngIf="isFullScreen">
+        <div class="video-container" style="height: 90%;">
+            <img src={{videoURL}} class="video" alt="video">
+            <label class="fps">{{fps | number : '1.2-2'}}</label>
+        </div>
+        <div style="background-color: black;">
+            <input type="range" class="video-progressbar" min="0" [max]="tots" step="1" [(ngModel)]="frame_number"
+                (click)="onSliderClick()">
+        </div>
+
+        <div class="player-button-container card-custom">
+            <button class="playerButton" (click)="onCommandButton('play')" matTooltip="play"
+                matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">play_arrow</mat-icon>
+            </button>
+            <button class="playerButton" (click)="onCommandButton('stay')" matTooltip="stop"
+                matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">stop</mat-icon>
+            </button>
+            <button class="playerButton" (click)="onCommandButton('prev_frame')" title="seek backward"
+                matTooltip="seek backward" matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">replay_10</mat-icon>
+            </button>
+            <button class="playerButton" (click)="onCommandButton('next_frame')" matTooltip="seek forward"
+                matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">forward_30</mat-icon>
+            </button>
+            <button class="playerButton" matTooltip="slower" matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">fast_rewind</mat-icon>
+            </button>
+            <button class="playerButton" matTooltip="faster" matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">fast_forward</mat-icon>
+            </button>
+            <button class="playerButton" (click)="onCommandButton('snap')" matTooltip="snapshot"
+                matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">camera_alt</mat-icon>
+            </button>
+            <button class="playerButton" (click)="onCommandButton('fullscreen_exit')" matTooltip="exit fullscreen"
+                matTooltipClass="tooltip-custom">
+                <mat-icon style="font-size: 30px;">fullscreen_exit</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

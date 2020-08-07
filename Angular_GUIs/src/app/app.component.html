@@ -1,0 +1,20 @@
+<mat-sidenav-container>
+
+    <mat-sidenav #sidenav mode="over" position="end" class="toggle-container" disableClose="true">
+      <app-right-side-nav></app-right-side-nav>
+    </mat-sidenav>
+  
+    <mat-sidenav-content >
+      <div class="container-main">
+        <app-header></app-header>
+        <mat-drawer-container class="conatiner-body">
+            <mat-drawer mode="side" opened>
+                <app-side-nav></app-side-nav>
+            </mat-drawer>
+            <mat-drawer-content>
+                <router-outlet></router-outlet>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>      
+    </mat-sidenav-content>
+  </mat-sidenav-container>

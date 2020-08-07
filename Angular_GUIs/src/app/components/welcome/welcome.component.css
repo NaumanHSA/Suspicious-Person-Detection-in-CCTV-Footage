@@ -1,0 +1,67 @@
+.header {
+    width: 100%;
+    min-height: 400px;
+    background: linear-gradient(270deg,  rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('../../../assets/images/cover/camera-7.jpg');
+    background-size: cover;
+    background-position: center top;
+    margin-bottom: 20px;
+}
+
+.features-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    box-sizing: border-box;
+}
+
+.text-container {
+    text-align: justify;
+    display: block;
+    margin: 0% 3% 4% 3%;
+    box-sizing: border-box;
+}
+
+.feature-container {
+    width: 260px;
+    height: 270px;
+    background-color: white;
+    box-shadow: 0 0 10px black;
+    border-radius: 10px;
+    padding: 15px 15px 10px 15px;
+    text-align: center;
+}
+
+.feature-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px black;
+}
+
+.font-1 {
+    font-size: 24pt;
+    font-weight: 1000;
+    float: left;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.font-2 {
+    font-size: 14pt;
+    /* font-weight: 500; */
+    color: white;
+    float: left;
+}
+
+.header-btn {
+    width: 220px;
+    background: rgb(0, 195, 255);
+    background: linear-gradient(90deg, rgba(0, 195, 255, 1) 45%, rgba(0, 80, 255, 1) 100%);
+    border: none;
+    color: white;
+    padding: 15px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 12pt;
+    margin-right: 50px;
+}

@@ -1,0 +1,185 @@
+<div class="header">
+    <div class="row-flex-container">
+        <button class="headerButton" (click)="toggleSideNav()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <label style="font-size: 20px;">Settings</label>
+    </div>
+</div>
+
+<div class="row row-custom-1">
+    <div class="row-flex-container" style="justify-content: space-around;">
+        <button #btnGeneral class="navigation-btn clear" (click)="navigate(0)">General</button>
+        <button class="navigation-btn clear" (click)="navigate(1)">Configurations</button>
+        <button class="navigation-btn clear" (click)="navigate(2)">Notifications</button>
+    </div>
+    <hr>
+</div>
+
+<div *ngIf="page_general">
+    <div class="row row-custom-1">
+        <div class="col-12 h6 font-weight-bold">Output Directory</div>
+        <div class="col-12">
+            <div class="was-validated">
+                <label for="output">Type a folder path to save videos and photos inside</label>
+                <input type="input" class="form-control is-invalid" id="output" placeholder="Enter folder path"
+                    [(ngModel)]="filePath" required>
+                <div class="invalid-feedback" [hidden]='!isError.output'>{{error.output}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-custom-1">
+        <div class="col-8">
+            <div class="col-12 alert alert-success" *ngIf="isSavedSuccess">
+                <strong>Success ! </strong> Settings successfully saved
+             </div>
+             <div class="col-12 alert alert-danger" *ngIf="isSavedDanger">
+                <strong>Error ! </strong> Invalid Information
+             </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <button class="btn btn-primary" style="width: 100px;" (click)="onSaveButton()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="page_config">
+    <div class="row row-custom-1">
+        <div class="col-12 h6 font-weight-bold">Detection Configuration</div>
+    
+        <div class="col-12">
+            <div class="was-validated mb-3">
+                <label>Choose pre-trained weights for detection</label>
+                <div class="custom-file">
+                    <input #weightsInput type="file" class="custom-file-input"
+                        (change)="handleOutputEvent($event, 1)" accept=".weights" required>
+                    <label class="custom-file-label overflow-hidden" for="weightsInput">{{weights}}</label>
+                    <div class="invalid-feedback" [hidden]='!isError.weights'>{{error.weights}}</div>
+                </div>
+            </div>
+    
+            <form class="was-validated mb-3">
+                <label>Choose configuration file for YOLO version 3</label>
+                <div class="custom-file">
+                    <input #cfgInput type="file" class="custom-file-input" (change)="handleOutputEvent($event, 2)"
+                        accept=".cfg" required>
+                    <label class="custom-file-label overflow-hidden is-invalid" for="cfgInput">{{cfg}}</label>
+                    <div class="invalid-feedback" [hidden]='!isError.cfg'>{{error.cfg}}</div>
+                </div>
+            </form>
+    
+            <form class="was-validated mb-3">
+                <label>Choose .names file containing classes to detect</label>
+                <div class="custom-file">
+                    <input #classesInput type="file" class="custom-file-input" (change)="handleOutputEvent($event, 3)"
+                        accept=".names" required>
+                    <label class="custom-file-label overflow-hidden is-invalid" for="classesInput">{{classes}}</label>
+                    <div class="invalid-feedback" [hidden]='!isError.classes'>{{error.classes}}</div>
+                </div>
+            </form>
+    
+            <div class="form-group mb-3">
+                <label for="resolution">Input Resolution</label>
+                <select class="form-control" id="resolution" [(ngModel)]="res">
+                    <option>256</option>
+                    <option>320</option>
+                    <option selected>416</option>
+                    <option>608</option>
+                    <option>832</option>
+                </select>
+            </div>
+    
+            <div class="form-group mb-3">
+                <label for="confidence">Confidence threshold</label>
+                <div class="row">
+                    <div class="col-11">
+                        <input type="range" class="custom-range" min="0" max="1" step="0.1" id="confidence"
+                            [(ngModel)]="confidence">
+                    </div>
+                    <div class="col-1">
+                        <span class="font-weight-bold indigo-text mr-2 mt-1">{{confidence}}</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group mb-3">
+                <label for="confidence">Non-Maximum-Suppression threshold (NMS)</label>
+                <div class="row">
+                    <div class="col-11">
+                        <input type="range" class="custom-range" min="0" max="1" step="0.1" id="confidence"
+                            [(ngModel)]="NMS">
+                    </div>
+                    <div class="col-1">
+                        <span class="font-weight-bold indigo-text mr-2 mt-1">{{NMS}}</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group mb-3">
+                <label for="IoW">Intersection over weapon bbox (IoW)</label>
+                <div class="row">
+                    <div class="col-11">
+                        <input type="range" class="custom-range" min="0" max="1" step="0.1" id="IoW"
+                            [(ngModel)]="IoW">
+                    </div>
+                    <div class="col-1">
+                        <span class="font-weight-bold indigo-text mr-2 mt-1">{{IoW}}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="resolution">Batch size (images in batches are fed into model)</label>
+                <select class="form-control" id="resolution" [(ngModel)]="batch_size">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>4</option>
+                    <option>8</option>
+                    <option>16</option>
+                    <option>32</option>
+                    <option>64</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row row-custom-1">
+        <div class="col-8">
+            <div class="col-12 alert alert-success" *ngIf="isSavedSuccess">
+                <strong>Success ! </strong> Settings successfully saved
+             </div>
+             <div class="col-12 alert alert-danger" *ngIf="isSavedDanger">
+                <strong>Error ! </strong> Invalid Information
+             </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <button class="btn btn-primary" style="width: 100px;" (click)="onSaveButton()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="page_noti">
+    <div class="row row-custom-1" style="margin: 0px 10px 0px 10px;">
+        <div class="col-8">
+            <div class="col-12 alert alert-success" *ngIf="isSavedSuccess">
+                <strong>Success ! </strong> Settings successfully saved
+             </div>
+             <div class="col-12 alert alert-danger" *ngIf="isSavedDanger">
+                <strong>Error ! </strong> Invalid Information
+             </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <button class="btn btn-primary" style="width: 100px;" (click)="onSaveButton()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

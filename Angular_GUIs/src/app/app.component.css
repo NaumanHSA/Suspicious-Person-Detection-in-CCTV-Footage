@@ -1,0 +1,14 @@
+.container-main {
+    height: 100%;
+  }
+
+  .conatiner-body{
+    height:92.5vh;
+    border: 1px solid #555;
+  }
+
+  .toggle-container{
+    width: 500px;
+    height: 100%;
+    float: right;
+}

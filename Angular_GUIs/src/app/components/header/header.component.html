@@ -1,0 +1,70 @@
+<div class="header">
+    <div class="headerTitle">
+        <img src="assets/pngs/logo-white.png" alt="logo" class="logo">
+        Suspicious Person Detector
+    </div>
+
+    <div class="headerButtonContainer">
+        <button mat-icon-button [matMenuTriggerFor]="noti" class="headerButton" (click)="onNotificationButton()">
+            <div class="noti-number blink" *ngIf="isNotification">{{newNoti}}</div>
+            <mat-icon class="headerButtonIcon">notifications</mat-icon>
+            <span>Notifications</span>
+        </button>
+
+        <mat-menu #noti="matMenu" class="notification-menu">
+            <div class="notification-container" *ngIf="notifications.length == 0">
+                no new notifications
+            </div>
+            <div style="max-height: 600px; overflow: hidden; overflow: auto;">
+                <div class="notification-container" *ngFor="let notification of notifications">
+                    <div style="margin-right: 10px;">
+                        <img src="assets/pngs/close.png" alt="photo" class="notification-image">
+                    </div>
+                    <div style="width: 80%; display: flex; flex-direction: column;">
+                        <div class="text-dark font-weight-bold">{{notification.date}}</div>
+                        <div class="text-muted font-smaller">Suspicious Person Detected</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" style="float: left; font-size: small; color: blue;"
+                (click)="onExplorerButton('output')">Show in explorer</button>
+            <button class="btn" style="float: right; font-size: small; color: blue;"
+                (click)="onClearNotifications()">Clear all notifications</button>
+        </mat-menu>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="headerButton">
+            <mat-icon class="headerButtonIcon">menu</mat-icon>
+            <span>Menu</span>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item style="outline: none;">
+                <mat-icon class="headerButtonIcon">dialpad</mat-icon>
+                <span>Profile</span>
+            </button>
+            <button mat-menu-item style="outline: none;">
+                <mat-icon class="headerButtonIcon">voicemail</mat-icon>
+                <span>Settings</span>
+            </button>
+            <button mat-menu-item style="outline: none;">
+                <mat-icon class="headerButtonIcon">notifications_off</mat-icon>
+                <span>Log out</span>
+            </button>
+        </mat-menu>
+
+        <button mat-icon-button class="headerButton" (click)="toggleSidenav()">
+            <mat-icon class="headerButtonIcon">settings</mat-icon>
+            <span>Settings</span>
+        </button>
+    </div>
+
+    <div class="headerButtonContainer-2">
+        <button class="headerButton-2" (click)="onHeaderButton('minimize')">
+            <mat-icon>remove</mat-icon>
+        </button>
+
+        <button class="headerButton-2" (click)="onHeaderButton('close')">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>

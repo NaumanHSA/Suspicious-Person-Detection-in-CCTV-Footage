@@ -1,0 +1,8 @@
+Please first read the Readme files provided with the code implementations
+
+link to the dataset used:
+https://drive.google.com/file/d/1Cota0ibSaMo3pkwYYxaHCfrTVKxPf1Om/view?usp=sharing
+
+
+link to the pre-trained weights:
+https://drive.google.com/file/d/15Gzsi3BHeLv2t6qBUH6iLB0ziaFW17tC/view?usp=sharing

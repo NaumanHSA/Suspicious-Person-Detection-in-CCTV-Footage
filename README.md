@@ -17,7 +17,12 @@ Due to the complexity of the design, we have divided the system into three main 
 
 The interaction between different modules is shown below:
 
-![Modular Parts of the System](design_SPD.png)
+<br>
+<div align="center">
+  <img width="80%" src="./design_SPD.png"></a>
+  <br>
+  Modular Parts of the System
+</div>
 
 
 ## About Repository

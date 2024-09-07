@@ -25,6 +25,21 @@ The interaction between different modules is shown below:
 </div>
 
 
+<br>
+<div align="center">
+  <img width="80%" src="./SPD_Design.png"></a>
+  <br>
+  Design Methodology of Suspicious Person Detector
+</div>
+
+<br>
+<div align="center">
+  <img width="80%" src="./classifier.png"></a>
+  <br>
+  Classifier Design: Detecting a suspicious person from bounding boxes predicted by YOLOv3
+</div>
+
+
 ## About Repository
 This repo contains two sub-directories:
 
